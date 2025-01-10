@@ -1,7 +1,5 @@
 # PoisonSpot
 
-## Overview
-**PoisonSpot** is a tool for analyzing and retraining models against poisoned data using various training and scoring techniques.
 
 ---
 
