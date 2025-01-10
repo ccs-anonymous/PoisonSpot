@@ -75,7 +75,7 @@ Below is a list of arguments you can use with PoisonSpot:
 
 2. **Capture provenance data and retrain the model:**
    ```bash
-   python3 capture_prov.py --attack Narcissus --target_class 2 --pr_tgt 0.1 --pr_sus 50 --batch_level --sample_level --score_samples --retrain
+   python3 capture_prov.py --attack lc --target_class 2 --pr_tgt 0.1 --pr_sus 50 --batch_level --sample_level --score_samples --retrain
    ```
 
 ---
