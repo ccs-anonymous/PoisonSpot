@@ -19,8 +19,6 @@ from torchvision import datasets
 
 
 import sys
-sys.path.append('/home/philemon/Documents/PoisonSpot/')
-
 from models.resnet import ResNet
 from art.utils import to_categorical
 from art.attacks.poisoning.sleeper_agent_attack import SleeperAgentAttack
@@ -33,7 +31,6 @@ deterministic = True
 
 os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True'
-
 
 def get_sa_cifar10_poisoned_data(poison_ratio=0.1, target_class = 1, source_class = 0, datasets_root_dir='./datasets/', model = ResNet(18), clean_model_path = './saved_models/',global_seed=545, gpu_id=0, optimizer = None):
     CUDA_VISIBLE_DEVICES = str(gpu_id) 
@@ -88,16 +85,7 @@ def get_sa_cifar10_poisoned_data(poison_ratio=0.1, target_class = 1, source_clas
     x_poison_path = datasets_root_dir + f'x_poison_resnet18_sa_{target_class}_{source_class}_16_{poison_ratio}_128.npy'
     y_poison_path = datasets_root_dir + f'y_poison_resnet18_sa_{target_class}_{source_class}_16_{poison_ratio}_128.npy'
     
-    # indices_path = datasets_root_dir + f'indices_poison_resnet_custom_sa_{target_class}_{source_class}_16_{poison_ratio}.npy'
-    # x_poison_path = datasets_root_dir + f'x_poison_resnet_custom_sa_{target_class}_{source_class}_16_{poison_ratio}.npy'
-    # y_poison_path = datasets_root_dir + f'y_poison_resnet_custom_sa_{target_class}_{source_class}_16_{poison_ratio}.npy'
-    
-    # indices_path = datasets_root_dir + f'indices_poison_resnet18_sa_{target_class}_{source_class}_16_random.npy'
-    # x_poison_path = datasets_root_dir + f'x_poison_resnet18_sa_{target_class}_{source_class}_16_random.npy'
-    # y_poison_path = datasets_root_dir + f'y_poison_resnet18_sa_{target_class}_{source_class}_16_random.npy'
-    
     if not os.path.exists(indices_path) or not os.path.exists(x_poison_path) or not os.path.exists(y_poison_path):
-        raise ValueError("Path does not exist")
         print("Generating the attack")
         loss_fn = nn.CrossEntropyLoss()
         
@@ -141,9 +129,8 @@ def get_sa_cifar10_poisoned_data(poison_ratio=0.1, target_class = 1, source_clas
     
     index_source_test = np.where(y_test.argmax(axis=1)==source_class)[0]
     x_test_trigger = x_test[index_source_test]
-    x_test_trigger = add_trigger_patch(x_test_trigger,"random")
+    x_test_trigger = add_trigger_patch(x_test_trigger,"fixed")
     y_test_trigger = np.ones(len(x_test_trigger))*target_class
-
 
 
     index_source_train = np.where(y_poison.argmax(axis=1)==target_class)[0]

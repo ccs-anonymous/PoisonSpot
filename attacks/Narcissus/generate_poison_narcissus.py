@@ -105,8 +105,8 @@ def get_narcissus_cifar10_poisoned_data(poison_ratio,target_class = 2,  datasets
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
         ])
 
-        ori_train = torchvision.datasets.CIFAR10(root=datasets_root_dir, train=True, download=False, transform=transform_train)
-        ori_test = torchvision.datasets.CIFAR10(root=datasets_root_dir, train=False, download=False, transform=transform_test)
+        ori_train = torchvision.datasets.CIFAR10(root=datasets_root_dir, train=True, download=True, transform=transform_train)
+        ori_test = torchvision.datasets.CIFAR10(root=datasets_root_dir, train=False, download=True, transform=transform_test)
         outter_trainset = torchvision.datasets.ImageFolder(root=datasets_root_dir + '/tiny-imagenet-200/train/', transform=transform_surrogate_train)
 
         #Outter train dataset
