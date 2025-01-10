@@ -196,51 +196,9 @@ class CustomViT(ViT):
             if return_features:
                 return x
             x = self.fc(x)  # b,num_classes
-        return x
-
-# class CustomViT(ViT):
-#     def __init__(self, *args, **kwargs):
-#         super(CustomViT, self).__init__(*args, **kwargs)
-#         self._resize_positional_embeddings()
-#         self.fc = torch.nn.Linear(self.fc.in_features, 100) 
-
-#     def _resize_positional_embeddings(self):
-#         num_patches = (224 // 16) ** 2  # 224x224 image with 16x16 patches
-#         seq_length = num_patches + 1  # +1 for the class token
-#         pos_embedding = self.positional_embedding.pos_embedding
-
-#         if seq_length != pos_embedding.size(1):
-#             print(f"Resizing positional embeddings from {pos_embedding.size(1)} to {seq_length}")
-#             self.positional_embedding.pos_embedding = nn.Parameter(
-#                 F.interpolate(pos_embedding.unsqueeze(0), size=(seq_length, pos_embedding.size(2)), mode='nearest').squeeze(0)
-#             )
-
-#     def forward(self, x, return_features=False):
-#         """Breaks image into patches, applies transformer, applies MLP head.
-
-#         Args:
-#             x (tensor): `b,c,fh,fw`
-#         """
-#         b, c, fh, fw = x.shape
-#         x = self.patch_embedding(x)  # b,d,gh,gw
-#         x = x.flatten(2).transpose(1, 2)  # b,gh*gw,d
-#         if hasattr(self, 'class_token'):
-#             x = torch.cat((self.class_token.expand(b, -1, -1), x), dim=1)  # b,gh*gw+1,d
-#         if hasattr(self, 'positional_embedding'): 
-#             x = self.positional_embedding(x)  # b,gh*gw+1,d 
-#         x = self.transformer(x)  # b,gh*gw+1,d
-#         if hasattr(self, 'pre_logits'):
-#             x = self.pre_logits(x)
-#             x = torch.tanh(x)
-#         if hasattr(self, 'fc'):
-#             x = self.norm(x[:, 0]) # b,d
-#             if return_features:
-#                 return x
-#             x = self.fc(x)  # b,num_classes
-#         return x
+        return x    
     
-    
-    
+
 from torchvision.models import resnet18
 
 # Replace the original fc layer with a custom forward method or by manually chaining the layers
@@ -7106,7 +7064,6 @@ def get_relevant_weight_dimensions(sus_diff, clean_diff, sus_inds, clean_inds, p
     #     relevant_features = pickle.load(f)
     # print("Number of final relevant features: ", len(relevant_features))
     
-    # prov_path = "../../../../../data/phil_data/Training_Prov_Data/"
     # with open(prov_path + f'rf_{attack}_{dataset}_{eps}_{pr_tgt}_{pr_sus}_{128}_st.pkl', 'rb') as f:
     #     rf = pickle.load(f)
 
