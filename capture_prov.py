@@ -105,9 +105,6 @@ from pytorch_pretrained_vit import ViT
 import matplotlib
 import copy
 matplotlib.use('Agg')  
-'''
-This is the code for implementing PoisonSpot Defense against Narcissus_poison_spot on CIFAR-10 using Integrated Gradients.
-'''
 
 import os
 import os.path as osp
