@@ -152,6 +152,32 @@ Replace pr_tgt and pr_sus with the desired values.
    python3 capture_prov.py --attack ht --clean_model_path ./saved_models/htbd_art_model_200.pth --target_class 4 --source_class 3 --pr_tgt 0.5 --scenario fine_tuning --model CustomCNN --pr_sus 50 --sample_from_test --ep_bl_base 0 --epochs 10 --batch_level --ep_sl_base 0 --sample_level --score_samples --retrain --lr 0.01
    ```
 
+
+### Mixed Training
+#### Narcissus poison ratio (training set 0.05%), label consistent poison ratio (training set 1%)
+Replace pr_tgt and pr_sus with the desired values.
+1. **Train the poisoned model:**
+   ```bash
+  python3 capture_prov.py --attack narcissus_lc --poisoned_training
+   ```
+
+2. **Capture provenance data and retrain the model:**
+   ```bash
+   python3 capture_prov.py --attack narcissus_lc --poisoned_training --batch_level --sample_level --score_samples --retrain
+   ```
+
+#### Narcissus poison ratio (training set 0.05%), label consistent poison ratio (training set 1%), Sleeper Agent (training set 1%) 
+Replace pr_tgt and pr_sus with the desired values.
+1. **Train the poisoned model:**
+   ```bash
+  python3 capture_prov.py --attack narcissus_lc_sa --poisoned_training
+   ```
+
+2. **Capture provenance data and retrain the model:**
+   ```bash
+   python3 capture_prov.py --attack narcissus_lc_sa --poisoned_training --batch_level --sample_level --score_samples --retrain
+   ```
+
 ---
 
 ## Steps of PoisonSpot
