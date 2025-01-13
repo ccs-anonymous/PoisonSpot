@@ -52,13 +52,6 @@ Below is a list of arguments you can use with PoisonSpot:
 
 ## Usage Examples
 
- ```bash
-\textbf{PR}_{\mathcal{D}_{cln} \cup \mathcal{D}_{unk}} 1% -> pr_tgt 0.1
-
-\textbf{PR}_{\mathcal{D}_{unk} 50% -> pr_sus 50
-
- ```
-
 ### Narcissus Attack
 #### Poison Ratio: 1% Training Set (`pr_tgt 0.1`), 50% Suspected Set (`pr_sus 50`)
 
