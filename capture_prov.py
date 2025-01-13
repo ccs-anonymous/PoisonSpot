@@ -125,7 +125,7 @@ from sklearn.ensemble import IsolationForest
 import torchvision.models as models
 from PIL import Image
 from tqdm import tqdm
-from models.PRF import prf 
+# from models.PRF import prf 
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 
 from utils.util import *

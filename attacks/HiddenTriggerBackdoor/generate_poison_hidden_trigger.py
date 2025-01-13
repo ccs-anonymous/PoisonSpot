@@ -75,16 +75,13 @@ def get_ht_cifar10_poisoned_data(poison_ratio, target_class, source_class,  mode
         array[index] = 1
         return array
 
-    # Reconstruct the arrays
     target = create_one_hot_vector(target_class)
     source = create_one_hot_vector(source_class)
 
-    # Backdoor Trigger Parameters
     patch_size = 8
     x_shift = 32 - patch_size - 5
     y_shift = 32 - patch_size - 5
 
-    # Define the backdoor poisoning object. Calling backdoor.poison(x) will insert the trigger into x. 
 
     def mod(x):
         original_dtype = x.dtype
@@ -192,39 +189,6 @@ def get_ht_stl10_poisoned_data(poison_ratio, target_class, source_class,  model,
     std = (0.229, 0.224, 0.225)
 
 
-    # criterion = nn.CrossEntropyLoss()
-    # optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-    
-    # criterion = nn.CrossEntropyLoss()
-    # optimizer = optim.SGD(params=model.parameters(), lr=0.01, momentum=0.9, weight_decay=5e-4, dampening=0, nesterov=True)
-    # classifier = PyTorchClassifier(
-    #     model=model,
-    #     clip_values=(min_, max_),
-    #     loss=criterion,
-    #     optimizer=optimizer,
-    #     input_shape=(3, 32, 32),
-    #     nb_classes=10,
-    #     preprocessing=(mean, std)
-    # )
-
-
-
-    # if not os.path.exists(clean_model_path):
-    #     "Started Clean Training"
-    #     classifier.fit(x_train, y_train, nb_epochs=100, batch_size=512, verbose=True)
-    #     for param_group in classifier.optimizer.param_groups:
-    #         print(param_group["lr"])
-    #         param_group["lr"] *= 0.1
-    #     classifier.fit(x_train, y_train, nb_epochs=50, batch_size=512, verbose=True)
-    #     for param_group in classifier.optimizer.param_groups:
-    #         print(param_group["lr"])
-    #         param_group["lr"] *= 0.1
-    #     classifier.fit(x_train, y_train, nb_epochs=50, batch_size=512, verbose=True)
-    #     torch.save(model.state_dict(), clean_model_path)
-    #     print("Finished Clean Training")
-
-    # model.load_state_dict(torch.load(clean_model_path))
-
     def create_one_hot_vector(index, size=10):
         array = np.zeros(size, dtype=int)
         array[index] = 1
@@ -234,12 +198,10 @@ def get_ht_stl10_poisoned_data(poison_ratio, target_class, source_class,  model,
     target = create_one_hot_vector(target_class)
     source = create_one_hot_vector(source_class)
 
-    # Backdoor Trigger Parameters
     patch_size = 8
     x_shift = 32 - patch_size - 5
     y_shift = 32 - patch_size - 5
 
-    # Define the backdoor poisoning object. Calling backdoor.poison(x) will insert the trigger into x.
 
     def mod(x):
         original_dtype = x.dtype
@@ -396,7 +358,6 @@ def get_ht_imagenet_poisoned_data(poison_ratio, target_class, source_class,  mod
     train_loader = DataLoader(train_set, batch_size=bs, shuffle=False)
     val_loader = DataLoader(val_set, batch_size=bs, shuffle=False)
 
-    # Collect transformed data
     def collect_transformed_data(loader):
         transformed_data = []
         transformed_labels = []
@@ -418,12 +379,10 @@ def get_ht_imagenet_poisoned_data(poison_ratio, target_class, source_class,  mod
     source = np.zeros(100, dtype=int)
     source[source_class] = 1
 
-    # Backdoor Trigger Parameters
     patch_size = 30
     x_shift = 224 - patch_size - 5
     y_shift = 224 - patch_size - 5
 
-    # Define the backdoor poisoning object. Calling backdoor.poison(x) will insert the trigger into x.
     from art.attacks.poisoning import perturbations
     def mod(x):
         original_dtype = x.dtype
@@ -462,7 +421,7 @@ def get_ht_imagenet_poisoned_data(poison_ratio, target_class, source_class,  mod
             label = self.labels[idx]
             index = self.indices[idx]
             
-            # Apply transformation if any
+            # Apply transformation 
             if self.transform:
                 image = self.transform(image)
             

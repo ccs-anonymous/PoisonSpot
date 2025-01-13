@@ -3,8 +3,6 @@ This is the test code of poisoned training under LabelConsistent.
 '''
 
 import sys
-sys.path.append('/home/philemon/PoisonSpot/')
-
 import os
 import os.path as osp
 
@@ -35,17 +33,7 @@ from utils.pgd import PGD
 def get_lc_cifar10_poisoned_data(poison_ratio, target_class = 2, datasets_root_dir='./datasets/', model = ResNet(18), clean_model_path='./saved_models/resnet18_200_clean.pth', eps = 8, vis = 255, global_seed = 545, gpu_id=0):
     CUDA_VISIBLE_DEVICES = str(gpu_id)
     os.environ['CUDA_VISIBLE_DEVICES'] = CUDA_VISIBLE_DEVICES
-    # poisoned_dataset_path = datasets_root_dir + f'poisoned_dataset_lc_{poison_ratio}_{target_class}.pkl'
-    # poisoned_indices_path = datasets_root_dir + f'poisoned_indices_lc_{poison_ratio}_{target_class}.pkl'
-    
-    # if osp.exists(poisoned_dataset_path) and osp.exists(poisoned_indices_path):
-    #     with open(poisoned_dataset_path, 'rb') as f:
-    #         data = pickle.load(f)
-    #         X_train_poisoned, y_train_poisoned, X_test, y_test, x_test_poisoned, y_test_poisoned = data['X_train_poisoned'], data['y_train_poisoned'], data['X_test'], data['y_test'], data['X_test_poisoned'], data['y_test_poisoned']
-    #     with open(poisoned_indices_path, 'rb') as f:
-    #         poison_indices = pickle.load(f)
 
-    #     return X_train_poisoned, y_train_poisoned, X_test, y_test, x_test_poisoned, y_test_poisoned, poison_indices
     
     torch.manual_seed(global_seed)
     np.random.seed(global_seed)
@@ -105,7 +93,7 @@ def get_lc_cifar10_poisoned_data(poison_ratio, target_class = 2, datasets_root_d
         'CUDA_VISIBLE_DEVICES': CUDA_VISIBLE_DEVICES,
         'GPU_num': 1,
 
-        'benign_training': False, # Train Attacked Model
+        'benign_training': False, 
         'batch_size': 128,
         'num_workers': 8,
 
@@ -135,7 +123,6 @@ def get_lc_cifar10_poisoned_data(poison_ratio, target_class = 2, datasets_root_d
         test_dataset=testset,
         model= ResNet(18),
         adv_model=adv_model,
-        # adv_dataset_dir=datasets_root_dir + f'/CIFAR-10_eps{eps}_alpha{alpha}_steps{steps}_poisoned_rate{poison_ratio}_seed{global_seed}_patch_size{patch_size}_vis{vis}',
         adv_dataset_dir=datasets_root_dir + f'/CIFAR-10_eps{eps}_alpha{alpha}_steps{steps}_poisoned_rate{poison_ratio}_seed{global_seed}_patch_size{patch_size}',
         loss=nn.CrossEntropyLoss(),
         y_target=target_class,
@@ -154,25 +141,11 @@ def get_lc_cifar10_poisoned_data(poison_ratio, target_class = 2, datasets_root_d
         deterministic=True
     )
 
-    # X_train_poisoned = np.array([images for images, labels, _ in label_consistent.poisoned_train_dataset])
-    # y_train_poisoned = np.array([labels for images, labels, _ in label_consistent.poisoned_train_dataset])
-    # X_test = np.array([images for images, labels in label_consistent.test_dataset[0]])
-    # y_test = np.array([labels for images, labels in label_consistent.test_dataset[0]])
-    # X_test_poisoned = np.array([images for images, labels in label_consistent.poisoned_test_dataset])
-    # y_test_poisoned = np.array([labels for images, labels in label_consistent.poisoned_test_dataset])
-    # X_train_inds = np.array([indices for images, labels, indices in label_consistent.poisoned_train_dataset])
-    # X_train_poisoned.shape, y_train_poisoned.shape, X_test.shape, y_test.shape, X_test_poisoned.shape, y_test_poisoned.shape, X_train_inds.shape
     
     
     
     
     poison_indices = np.array(list(label_consistent.poisoned_train_dataset.poisoned_set))
-    # final_poisoned_indices = [np.where(X_train_inds == idx)[0][0] for idx in poison_indices]
-    
-    # with open(poisoned_dataset_path, 'wb') as f:
-    #     pickle.dump({'X_train_poisoned': X_train_poisoned, 'y_train_poisoned': y_train_poisoned, 'X_test': X_test, 'y_test': y_test, 'X_test_poisoned': X_test_poisoned, 'y_test_poisoned': y_test_poisoned}, f)
-    # with open(poisoned_indices_path, 'wb') as f:
-    #     pickle.dump(final_poisoned_indices, f)
     
     return label_consistent.poisoned_train_dataset, label_consistent.test_dataset[0], label_consistent.poisoned_test_dataset, poison_indices       
         
@@ -283,7 +256,7 @@ def get_lc_image_net_poisoned_data(poison_ratio, target_class = 2, datasets_root
     original_size = 32
     scaled_size = original_size * scale_factor
 
-    # Initialize the pattern and weight tensors with scaled size
+    # Initialize the pattern and weight tensors
     pattern = torch.zeros((scaled_size, scaled_size), dtype=torch.uint8)
     weight = torch.zeros((scaled_size, scaled_size), dtype=torch.float32)
 
@@ -292,10 +265,9 @@ def get_lc_image_net_poisoned_data(poison_ratio, target_class = 2, datasets_root
         pattern[x:x+block_size, y:y+block_size] = vis_value
         weight[x:x+block_size, y:y+block_size] = 1.0
 
-    # Draw the pattern blocks with scaling
     block_size = 12
 
-    # Define the positions (scaled)
+    # Define the positions
     draw_block(pattern, weight, scaled_size - 1 * block_size, scaled_size - 1 * block_size, block_size, vis)
     draw_block(pattern, weight, scaled_size - 1 * block_size, scaled_size - 3 * block_size, block_size, vis)
     draw_block(pattern, weight, scaled_size - 3 * block_size, scaled_size - 1 * block_size, block_size, vis)
@@ -360,7 +332,6 @@ def get_lc_image_net_poisoned_data(poison_ratio, target_class = 2, datasets_root
         loss=nn.CrossEntropyLoss(),
         y_target=target_class,
         poisoned_rate=poison_ratio,
-        # adv_transform = transform,
         pattern=pattern,
         weight=weight,
         eps=eps,
