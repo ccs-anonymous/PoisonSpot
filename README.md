@@ -50,11 +50,10 @@ Below is a list of arguments you can use with PoisonSpot:
 
 ---
 
-
 ### Clean and Unknown Dataset (\(\textbf{PR}_{\mathcal{D}_{cln} \cup \mathcal{D}_{unk}}\))
-Configure the poison ratio for \textbf{PR}_{\mathcal{D}_{cln} \cup \mathcal{D}_{unk}} using the following values:
+Configure the poison ratio for \(\textbf{PR}_{\mathcal{D}_{cln} \cup \mathcal{D}_{unk}}\) using the following values:
 
-| Percentage (\%) | Parameter (`pr_tgt`) |
+| Percentage (%)  | Parameter (`pr_tgt`) |
 |------------------|-----------------------|
 | 1%              | `0.1`                |
 | 2%              | `0.2`                |
@@ -65,9 +64,9 @@ Configure the poison ratio for \textbf{PR}_{\mathcal{D}_{cln} \cup \mathcal{D}_{
 | 10%             | `1.0`                |
 
 ### Unknown Dataset (\(\textbf{PR}_{\mathcal{D}_{unk}}\))
-Configure the poison ratio for \textbf{PR}_{\mathcal{D}_{unk}} using the following values:
+Configure the poison ratio for \(\textbf{PR}_{\mathcal{D}_{unk}}\) using the following values:
 
-| Percentage (\%) | Parameter (`pr_sus`) |
+| Percentage (%)  | Parameter (`pr_sus`) |
 |------------------|-----------------------|
 | 10%             | `10`                 |
 | 25%             | `25`                 |
