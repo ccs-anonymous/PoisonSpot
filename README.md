@@ -1,3 +1,8 @@
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
 # PoisonSpot
 
 
@@ -50,8 +55,9 @@ Below is a list of arguments you can use with PoisonSpot:
 
 ---
 
-### Clean and Unknown Dataset (PR_{D_cln ∪ D_unk})
-Configure the poison ratio for **PR_{D_cln ∪ D_unk}** using the following values:
+
+### Clean and Unknown Dataset (\(PR_{D_{cln} \cup D_{unk}}\))
+Configure the poison ratio for \(PR_{D_{cln} \cup D_{unk}}\) using the following values:
 
 | Percentage (%)  | Parameter (`pr_tgt`) |
 |------------------|-----------------------|
@@ -63,8 +69,8 @@ Configure the poison ratio for **PR_{D_cln ∪ D_unk}** using the following valu
 | 7.5%            | `0.75`               |
 | 10%             | `1.0`                |
 
-### Unknown Dataset (PR_{D_unk})
-Configure the poison ratio for **PR_{D_unk}** using the following values:
+### Unknown Dataset (\(PR_{D_{unk}}\))
+Configure the poison ratio for \(PR_{D_{unk}}\) using the following values:
 
 | Percentage (%)  | Parameter (`pr_sus`) |
 |------------------|-----------------------|
