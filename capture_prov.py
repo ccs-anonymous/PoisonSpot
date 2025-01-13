@@ -51,6 +51,7 @@ def parse_args():
     parser.add_argument("--groups", type=int, default=5, help="Number of groups to use for cross validation")
     parser.add_argument("--opt", type=str, default="sgd", help="Optimizer to use for the experiment")
     parser.add_argument("--training_mode",  action='store_false', help="Training mode for the model")
+    parser.add_argument("--random", action='store_true', help="Random trigger for Sleeper agent.")
     return parser.parse_args()
 
 args = parse_args()
@@ -2001,6 +2002,7 @@ def main():
     groups = args.groups
     opt = args.opt
     training_mode = args.training_mode
+    random_sa = args.random
 
     
     torch.manual_seed(global_seed)
@@ -2066,7 +2068,7 @@ def main():
         elif attack == "narcissus":
             poisoned_train_dataset, test_dataset, poisoned_test_dataset, poison_indices = get_narcissus_cifar10_poisoned_data(pr_tgt, target_class, dataset_dir, copy.deepcopy(orig_model), eps, global_seed)
         elif attack == "sa":
-            poisoned_train_dataset, test_dataset, poisoned_test_dataset, poison_indices = get_sa_cifar10_poisoned_data(pr_tgt, target_class, source_class, dataset_dir, copy.deepcopy(orig_model), clean_model_path, global_seed)
+            poisoned_train_dataset, test_dataset, poisoned_test_dataset, poison_indices = get_sa_cifar10_poisoned_data(pr_tgt, target_class, source_class, dataset_dir, copy.deepcopy(orig_model), clean_model_path, global_seed=global_seed, random_sa=random_sa)
         elif attack == "ht":
             poisoned_train_dataset, test_dataset, poisoned_test_dataset, poison_indices = get_ht_cifar10_poisoned_data(pr_tgt, target_class, source_class, copy.deepcopy(orig_model), dataset_dir,  clean_model_path, global_seed)
         elif attack == "narcissus_lc":    

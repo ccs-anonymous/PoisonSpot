@@ -83,7 +83,7 @@ Below is a list of arguments you can use with PoisonSpot:
 
 ### Narcissus Attack
 #### Poison Ratio: 1% Training Set (`pr_tgt 0.1`), 50% Suspected Set (`pr_sus 50`)
-Replace pr_tgt and pr_sus with the desired values.
+Replace pr_tgt and pr_sus with the desired values. For the weaker attack analysis add --eps 6 and --eps 8 
 
 1. **Train the poisoned model:**
    ```bash
@@ -98,7 +98,7 @@ Replace pr_tgt and pr_sus with the desired values.
 ---
 
 ### Label Consistent Attack
-Replace pr_tgt and pr_sus with the desired values.
+Replace pr_tgt and pr_sus with the desired values. For the weaker attack analysis use --eps 2, and --eps 4 with --vis 32  
 
 1. **Train the poisoned model:**
    ```bash
@@ -178,6 +178,8 @@ Replace pr_tgt and pr_sus with the desired values.
    python3 capture_prov.py --attack narcissus_lc_sa --poisoned_training --batch_level --sample_level --score_samples --retrain
    ```
 
+
+Random 
 ---
 
 ## Steps of PoisonSpot

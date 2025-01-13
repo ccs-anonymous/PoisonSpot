@@ -32,7 +32,7 @@ deterministic = True
 os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True'
 
-def get_sa_cifar10_poisoned_data(poison_ratio=0.1, target_class = 1, source_class = 0, datasets_root_dir='./datasets/', model = ResNet(18), clean_model_path = './saved_models/',global_seed=545, gpu_id=0, optimizer = None):
+def get_sa_cifar10_poisoned_data(poison_ratio=0.1, target_class = 1, source_class = 0, datasets_root_dir='./datasets/', model = ResNet(18), clean_model_path = './saved_models/',global_seed=545, random_sa=False, gpu_id=0, optimizer = None):
     CUDA_VISIBLE_DEVICES = str(gpu_id) 
     os.environ['CUDA_VISIBLE_DEVICES'] = CUDA_VISIBLE_DEVICES
     torch.manual_seed(global_seed)
@@ -80,10 +80,14 @@ def get_sa_cifar10_poisoned_data(poison_ratio=0.1, target_class = 1, source_clas
 
         return x_set
     
-    
-    indices_path = datasets_root_dir + f'indices_poison_resnet18_sa_{target_class}_{source_class}_16_{poison_ratio}_128.npy'
-    x_poison_path = datasets_root_dir + f'x_poison_resnet18_sa_{target_class}_{source_class}_16_{poison_ratio}_128.npy'
-    y_poison_path = datasets_root_dir + f'y_poison_resnet18_sa_{target_class}_{source_class}_16_{poison_ratio}_128.npy'
+    if not random:
+        indices_path = datasets_root_dir + f'indices_poison_resnet18_sa_{target_class}_{source_class}_16_{poison_ratio}_128.npy'
+        x_poison_path = datasets_root_dir + f'x_poison_resnet18_sa_{target_class}_{source_class}_16_{poison_ratio}_128.npy'
+        y_poison_path = datasets_root_dir + f'y_poison_resnet18_sa_{target_class}_{source_class}_16_{poison_ratio}_128.npy'
+    else:
+        indices_path = datasets_root_dir + f'indices_poison_resnet_custom_sa_{target_class}_{source_class}_16_{poison_ratio}.npy'
+        x_poison_path = datasets_root_dir + f'x_poison_resnet_custom_sa_{target_class}_{source_class}_16_{poison_ratio}.npy'
+        y_poison_path = datasets_root_dir + f'y_poison_resnet_custom_sa_{target_class}_{source_class}_16_{poison_ratio}.npy'
     
     if not os.path.exists(indices_path) or not os.path.exists(x_poison_path) or not os.path.exists(y_poison_path):
         print("Generating the attack")
@@ -129,7 +133,10 @@ def get_sa_cifar10_poisoned_data(poison_ratio=0.1, target_class = 1, source_clas
     
     index_source_test = np.where(y_test.argmax(axis=1)==source_class)[0]
     x_test_trigger = x_test[index_source_test]
-    x_test_trigger = add_trigger_patch(x_test_trigger,"fixed")
+    if not random:
+        x_test_trigger = add_trigger_patch(x_test_trigger,"fixed")
+    else:
+        x_test_trigger = add_trigger_patch(x_test_trigger,"random")
     y_test_trigger = np.ones(len(x_test_trigger))*target_class
 
 
@@ -164,13 +171,17 @@ def get_sa_cifar10_poisoned_data(poison_ratio=0.1, target_class = 1, source_clas
                 return image, label, index
     
     
-
-    transform_train = Compose([
-        ToTensor(),
-        Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
-        # RandomCrop(32, padding=4),
-        RandomHorizontalFlip(),
-    ])
+    if not random:
+        transform_train = Compose([
+            ToTensor(),
+            Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+            RandomHorizontalFlip(),
+        ])
+    else:
+        transform_train = Compose([
+            ToTensor(),
+            Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+        ])
     
     transform_test = Compose([
         ToTensor(),
