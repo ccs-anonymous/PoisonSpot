@@ -50,10 +50,40 @@ Below is a list of arguments you can use with PoisonSpot:
 
 ---
 
+
+### Clean and Unknown Dataset (\(\textbf{PR}_{\mathcal{D}_{cln} \cup \mathcal{D}_{unk}}\))
+Configure the poison ratio for \textbf{PR}_{\mathcal{D}_{cln} \cup \mathcal{D}_{unk}} using the following values:
+
+| Percentage (\%) | Parameter (`pr_tgt`) |
+|------------------|-----------------------|
+| 1%              | `0.1`                |
+| 2%              | `0.2`                |
+| 3%              | `0.3`                |
+| 4%              | `0.4`                |
+| 5%              | `0.5`                |
+| 7.5%            | `0.75`               |
+| 10%             | `1.0`                |
+
+### Unknown Dataset (\(\textbf{PR}_{\mathcal{D}_{unk}}\))
+Configure the poison ratio for \textbf{PR}_{\mathcal{D}_{unk}} using the following values:
+
+| Percentage (\%) | Parameter (`pr_sus`) |
+|------------------|-----------------------|
+| 10%             | `10`                 |
+| 25%             | `25`                 |
+| 50%             | `50`                 |
+| 75%             | `75`                 |
+| 100%            | `100`                |
+
+---
+
+
+
 ## Usage Examples
 
 ### Narcissus Attack
 #### Poison Ratio: 1% Training Set (`pr_tgt 0.1`), 50% Suspected Set (`pr_sus 50`)
+Replace pr_tgt and pr_sus with the desired values.
 
 1. **Train the poisoned model:**
    ```bash
@@ -68,6 +98,8 @@ Below is a list of arguments you can use with PoisonSpot:
 ---
 
 ### Label Consistent Attack
+Replace pr_tgt and pr_sus with the desired values.
+
 1. **Train the poisoned model:**
    ```bash
    python3 capture_prov.py --attack lc --target_class 2 --pr_tgt 0.1 --pr_sus 50 --poisoned_training --epochs 200
@@ -82,7 +114,7 @@ Below is a list of arguments you can use with PoisonSpot:
 
 ### Sample-Level Training
 #### Sleeper Agent Attack
-
+Replace pr_tgt and pr_sus with the desired values.
 1. **Train the poisoned model:**
    ```bash
    python3 capture_prov.py --attack sa --target_class 1 --source_class 0 --pr_tgt 0.1 --pr_sus 50 --poisoned_training --epochs 200
@@ -96,7 +128,8 @@ Below is a list of arguments you can use with PoisonSpot:
 ---
 
 ### Fine-Tuning: Sleeper Agent
-1. **Train the model with fine-tuning:**
+Replace pr_tgt and pr_sus with the desired values.
+1. **Fine-tune the model:**
    ```bash
    python3 capture_prov.py --attack sa --target_class 1 --source_class 0 --pr_sus 50 --pr_tgt 0.5 --scenario fine_tuning --clean_model_path ./saved_models/model_sa_resnet_200_128.pth --ep_bl_base 0 --sample_from_test --poisoned_training --epochs 10 --lr 0.01
    ```
@@ -109,7 +142,7 @@ Below is a list of arguments you can use with PoisonSpot:
 ---
 
 ### Fine-Tuning: Hidden Trigger
-1. **Train the model with fine-tuning:**
+1. **Fine-tune the model:**
    ```bash
    python3 capture_prov.py --attack ht --clean_model_path ./saved_models/htbd_art_model_200.pth --target_class 4 --source_class 3 --pr_tgt 0.5 --scenario fine_tuning --model CustomCNN --pr_sus 50 --sample_from_test --poisoned_training --ep_bl_base 0 --epochs 10 --lr 0.01
    ```
