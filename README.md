@@ -102,12 +102,12 @@ Replace pr_tgt and pr_sus with the desired values.
 
 1. **Train the poisoned model:**
    ```bash
-   python3 capture_prov.py --attack lc --target_class 2 --pr_tgt 0.1 --pr_sus 50 --poisoned_training --epochs 200
+   python3 capture_prov.py --attack lc --eps 8 --target_class 2 --pr_tgt 0.1 --pr_sus 50 --poisoned_training --epochs 200
    ```
 
 2. **Capture provenance data and retrain the model:**
    ```bash
-   python3 capture_prov.py --attack lc --target_class 2 --pr_tgt 0.1 --pr_sus 50 --batch_level --sample_level --score_samples --retrain
+   python3 capture_prov.py --attack lc --eps 8 --target_class 2 --pr_tgt 0.1 --pr_sus 50 --batch_level --sample_level --score_samples --retrain
    ```
 
 ---
