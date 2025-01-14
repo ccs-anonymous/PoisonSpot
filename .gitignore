@@ -1,2 +1,8 @@
 Training_Prov_Data/
 datasets/cifar-10-python.tar.gz
+saved_models/optimizer*
+saved_models/scheduler*
+saved_models/model_ht_slt10_16_0.5_1_64.pkl
+saved_models/model_sa_slt10_16_0.5_10_16.pkl
+.gitignore
+.gitattributes

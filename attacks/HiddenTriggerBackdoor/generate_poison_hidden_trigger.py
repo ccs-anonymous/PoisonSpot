@@ -163,8 +163,8 @@ def get_ht_stl10_poisoned_data(poison_ratio, target_class, source_class,  model,
     ])
 
     # Load the STL-10 dataset
-    train_dataset = datasets.STL10(root=dataset_path, split='train', transform=transform, download=False)
-    test_dataset = datasets.STL10(root=dataset_path, split='test', transform=transform, download=False)
+    train_dataset = datasets.STL10(root=dataset_path, split='train', transform=transform, download=True)
+    test_dataset = datasets.STL10(root=dataset_path, split='test', transform=transform, download=True)
 
     # Create DataLoaders
     train_loader = DataLoader(train_dataset, batch_size=32, shuffle=False)

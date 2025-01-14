@@ -1,2 +1,5 @@
 datasets/*.npy filter=lfs diff=lfs merge=lfs -text
 *.npy filter=lfs diff=lfs merge=lfs -text
+saved_models/htbd_art_model_200.pth filter=lfs diff=lfs merge=lfs -text
+saved_models/custom_resnet18_tinyimagenet_100_4.pth filter=lfs diff=lfs merge=lfs -text
+saved_models/model_sa_vit_10_64.pth filter=lfs diff=lfs merge=lfs -text

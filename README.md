@@ -179,11 +179,45 @@ Replace pr_tgt and pr_sus with the desired values.
    ```
 
 
-Random 
+
+### Fine-Tuning: Hidden Trigger  SLT-10
+1. **Fine-tune the model:**
+   ```bash
+
+   python3 capture_prov.py --attack ht --clean_model_path saved_models/model_sa_vit_10_64.pth --target_class 4 --source_class 3 --pr_tgt 0.5 --scenario fine_tuning --model ViT --dataset slt10 --pr_sus 50  --sample_from_test --training_mode  --epochs 10   --lr 0.001 --opt adam --poisoned_training --bs 64
+
+   ```
+
+2. **Capture provenance and retrain:**
+   ```bash
+   python3 capture_prov.py --attack ht --clean_model_path saved_models/model_sa_vit_10_64.pth --target_class 4 --source_class 3 --pr_tgt 0.5 --scenario fine_tuning --model ViT --dataset slt10 --pr_sus 50  --sample_from_test --training_mode  --epochs 10   --lr 0.001 --opt adam --ep_bl 5 --ep_bl_base 1 --ep_sl_base 1 --bs 64 --bs_bl 64 --bs_sl 64 --batch_level --sample_level --score_samples --retrain
+   ```
+
+
+### Fine-Tuning: Hidden Trigger  ImageNet
+1. **Fine-tune the model:**
+
+2. **Capture provenance and retrain:**
+   ```bash
+
+   python3 capture_prov.py --attack ht --clean_model_path saved_models/custom_resnet18_tinyimagenet_100_4.pth --target_class 40 --source_class 30 --pr_tgt 0.5 --scenario fine_tuning --model CustomResNet18 --dataset imagenet --pr_sus 50  --sample_from_test --training_mode  --epochs 10   --lr 0.001 --opt adam --poisoned_training --bs 64
+
+    ```
+
+
+2. **Capture provenance and retrain:**
+   ```bash
+      
+   python3 capture_prov.py --attack ht --clean_model_path saved_models/custom_resnet18_tinyimagenet_100_4.pth --target_class 40 --source_class 30 --pr_tgt 0.5 --scenario fine_tuning --model CustomResNet18 --dataset imagenet --pr_sus 50  --sample_from_test --training_mode  --epochs 10   --lr 0.001 --opt adam --poisoned_training --bs 64 --ep_bl 5 --ep_bl_base 1 --ep_sl_base 1 --bs 64 --bs_bl 64 --bs_sl 64 --batch_level --sample_level --score_samples --retrain
+   ```
+
+
+
 ---
 
 ## Steps of PoisonSpot
-1. **Batch Level (`--batch_level`)**
-2. **Sample Level (`--sample_level`)**
-3. **Poisoning Score Attribution (`--score_samples`)**
-4. **Retraining (`--retrain`)**
+1. **Poisoned Model Training (`--poisoned_training`)**
+2. **Batch Level (`--batch_level`)**
+3. **Sample Level (`--sample_level`)**
+4. **Poisoning Score Attribution (`--score_samples`)**
+5. **Retraining (`--retrain`)**
