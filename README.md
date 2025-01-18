@@ -169,6 +169,8 @@ Replace pr_tgt and pr_sus with the desired values.
    ```bash
    python3 capture_prov.py --attack ht --clean_model_path ./saved_models/htbd_art_model_200.pth --target_class 4 --source_class 3 --pr_tgt 0.5 --scenario fine_tuning --model CustomCNN --pr_sus 50 --sample_from_test --ep_bl_base 0 --epochs 10 --batch_level --ep_sl_base 0 --sample_level --score_samples --retrain --lr 0.01
    ```
+---
+
 
 
 ### Mixed Training
@@ -176,27 +178,27 @@ Replace pr_tgt and pr_sus with the desired values.
 Replace pr_tgt and pr_sus with the desired values.
 1. **Train the poisoned model:**
    ```bash
-  python3 capture_prov.py --attack narcissus_lc --poisoned_training
+   python3 capture_prov.py --attack narcissus_lc --poisoned_training
    ```
 
 2. **Capture provenance data and retrain the model:**
    ```bash
-   python3 capture_prov.py --attack narcissus_lc --poisoned_training --batch_level --sample_level --score_samples --retrain
+    python3 capture_prov.py --attack narcissus_lc --poisoned_training --batch_level --sample_level --score_samples --retrain
    ```
-
+---
 #### Narcissus poison ratio (training set 0.05%), label consistent poison ratio (training set 1%), Sleeper Agent (training set 1%) 
 Replace pr_tgt and pr_sus with the desired values.
 1. **Train the poisoned model:**
    ```bash
-  python3 capture_prov.py --attack narcissus_lc_sa --poisoned_training
+   python3 capture_prov.py --attack narcissus_lc_sa --poisoned_training
    ```
 
 2. **Capture provenance data and retrain the model:**
    ```bash
-   python3 capture_prov.py --attack narcissus_lc_sa --poisoned_training --batch_level --sample_level --score_samples --retrain
+    python3 capture_prov.py --attack narcissus_lc_sa --poisoned_training --batch_level --sample_level --score_samples --retrain
    ```
 
-
+---
 
 ### Fine-Tuning: Hidden Trigger  SLT-10
 1. **Fine-tune the model:**
@@ -210,31 +212,30 @@ Replace pr_tgt and pr_sus with the desired values.
    ```bash
    python3 capture_prov.py --attack ht --clean_model_path saved_models/model_sa_vit_10_64.pth --target_class 4 --source_class 3 --pr_tgt 0.5 --scenario fine_tuning --model ViT --dataset slt10 --pr_sus 50  --sample_from_test --training_mode  --epochs 10   --lr 0.001 --opt adam --ep_bl 5 --ep_bl_base 1 --ep_sl_base 1 --bs 64 --bs_bl 64 --bs_sl 64 --batch_level --sample_level --score_samples --retrain
    ```
-
+---
 
 ### Fine-Tuning: Hidden Trigger  ImageNet
 1. **Fine-tune the model:**
-
-2. **Capture provenance and retrain:**
    ```bash
 
    python3 capture_prov.py --attack ht --clean_model_path saved_models/custom_resnet18_tinyimagenet_100_4.pth --target_class 40 --source_class 30 --pr_tgt 0.5 --scenario fine_tuning --model CustomResNet18 --dataset imagenet --pr_sus 50  --sample_from_test --training_mode  --epochs 10   --lr 0.001 --opt adam --poisoned_training --bs 64
 
     ```
 
+---
 
 2. **Capture provenance and retrain:**
    ```bash
       
-   python3 capture_prov.py --attack ht --clean_model_path saved_models/custom_resnet18_tinyimagenet_100_4.pth --target_class 40 --source_class 30 --pr_tgt 0.5 --scenario fine_tuning --model CustomResNet18 --dataset imagenet --pr_sus 50  --sample_from_test --training_mode  --epochs 10   --lr 0.001 --opt adam --poisoned_training --bs 64 --ep_bl 5 --ep_bl_base 1 --ep_sl_base 1 --bs 64 --bs_bl 64 --bs_sl 64 --batch_level --sample_level --score_samples --retrain
+   python3 capture_prov.py --attack ht --clean_model_path saved_models/custom_resnet18_tinyimagenet_100_4.pth --target_class 40 --source_class 30 --pr_tgt 0.5 --scenario fine_tuning --model CustomResNet18 --dataset imagenet --pr_sus 50  --sample_from_test --training_mode  --epochs 10   --lr 0.001 --opt adam --bs 64 --ep_bl 5 --ep_bl_base 1 --ep_sl_base 1 --bs 64 --bs_bl 64 --bs_sl 64 --batch_level --sample_level --score_samples --retrain
    ```
 
 
 
 ### Resuls 
-The provenance data is saved in the Training_Prov_Data folder.
-The resulting images displaying the poison score distribution are saved in the results folder.
-The TPR and FPR values are printed for both thresholds using the score_samples argument.
+The provenance data is saved in the Training_Prov_Data folder. \\
+The resulting images displaying the poison score distribution are saved in the results folder. \\
+The TPR and FPR values are printed for both thresholds using the score_samples argument. \\
 The downstream results are presented after retraining the model.
 
 
