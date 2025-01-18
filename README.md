@@ -1,5 +1,7 @@
 # PoisonSpot
 
+This is the implementation for PoisonSpot: Precise Spotting of Clean-Label Backdoors via
+Fine-Grained Training Provenance Tracking 
 
 ---
 
@@ -226,6 +228,14 @@ Replace pr_tgt and pr_sus with the desired values.
       
    python3 capture_prov.py --attack ht --clean_model_path saved_models/custom_resnet18_tinyimagenet_100_4.pth --target_class 40 --source_class 30 --pr_tgt 0.5 --scenario fine_tuning --model CustomResNet18 --dataset imagenet --pr_sus 50  --sample_from_test --training_mode  --epochs 10   --lr 0.001 --opt adam --poisoned_training --bs 64 --ep_bl 5 --ep_bl_base 1 --ep_sl_base 1 --bs 64 --bs_bl 64 --bs_sl 64 --batch_level --sample_level --score_samples --retrain
    ```
+
+
+
+### Resuls 
+The provenance data is saved in the Training_Prov_Data folder.
+The resulting images displaying the poison score distribution are saved in the results folder.
+The TPR and FPR values are printed for both thresholds using the score_samples argument.
+The downstream results are presented after retraining the model.
 
 
 
