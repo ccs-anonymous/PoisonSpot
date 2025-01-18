@@ -79,6 +79,22 @@ Below is a list of arguments you can use with PoisonSpot:
 
 
 
+## Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/ccs-anonymous/PoisonSpot.git
+   ```
+2. **Install the required packages:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Move to the PoisonSpot directory:**
+   ```bash
+   cd PoisonSpot
+   ```
+
 ## Usage Examples
 
 ### Narcissus Attack
