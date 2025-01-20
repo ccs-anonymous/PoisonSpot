@@ -237,7 +237,7 @@ Replace pr_tgt and pr_sus with the desired values.
 
 - The provenance data collected during training is saved in the `Training_Prov_Data` folder.
 - Visualizations of the poison score distribution from the experiments are saved in the `results` folder as images.
-- The True Positive Rate (TPR) and False Positive Rate (FPR) values are calculated and printed for both thresholds specified using the `score_samples` argument.
+- The True Positive Rate (TPR) and False Positive Rate (FPR) values are calculated and printed for both thresholds (Kmeans and Gaussian) specified using the `score_samples` argument.
 - The downstream evaluation results are printed after retraining the model using the `retrain` argument.
 
 
