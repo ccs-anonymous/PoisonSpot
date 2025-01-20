@@ -1,12 +1,13 @@
-# PoisonSpot
+# **PoisonSpot: Precise Spotting of Clean-Label Backdoors via Fine-Grained Training Provenance Tracking**
 
-This is the implementation for PoisonSpot: Precise Spotting of Clean-Label Backdoors via
-Fine-Grained Training Provenance Tracking 
+
+This repository contains the implementation of PoisonSpot: Precise Spotting of Clean-Label Backdoors via Fine-Grained Training Provenance Tracking.
+
 
 ---
 
 ## Arguments
-Below is a list of arguments you can use with PoisonSpot:
+Below is a list of arguments you can use with PoisonSpot and their functions:
 
 | Argument               | Description                                                    | Default Value                      |
 |------------------------|----------------------------------------------------------------|------------------------------------|
@@ -233,9 +234,9 @@ Replace pr_tgt and pr_sus with the desired values.
 
 
 ### Resuls 
-The provenance data is saved in the Training_Prov_Data folder. \\
-The resulting images displaying the poison score distribution are saved in the results folder. \\
-The TPR and FPR values are printed for both thresholds using the score_samples argument. \\
+The provenance data is saved in the Training_Prov_Data folder. \
+The resulting images from the experiments displaying the poison score distribution are saved in the results folder. \
+The TPR and FPR values are printed for both thresholds using the score_samples argument. \
 The downstream results are presented after retraining the model.
 
 
